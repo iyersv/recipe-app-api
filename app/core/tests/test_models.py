@@ -5,7 +5,7 @@ from core import models
 
 def sample_user(email='test@abc.com', password="testpass"):
     """ creates a sample user """
-    return get_user_model().objects.create_user(email,password)
+    return get_user_model().objects.create_user(email, password)
 
 
 class ModelTests(TestCase):
@@ -39,7 +39,7 @@ class ModelTests(TestCase):
     def test_new_user_invalid_email(self):
         """ Test creating user with no email raises error """
         with self.assertRaises(ValueError):
-            get_user_model().objects.create_user(None,'test123')
+            get_user_model().objects.create_user(None, 'test123')
 
     def test_create_new_superuser(self):
         """
@@ -59,3 +59,12 @@ class ModelTests(TestCase):
             user=sample_user(), name='Vegan')
 
         # self.assertEqual(str(tag),tag.name)
+
+    def test_ingredient_str(self):
+        """ test ingredient string represtenation """
+
+        ingredient = models.Ingredient.objects.create(
+            user=sample_user(), name='Cucumber'
+        )
+
+        self.assertEqual(str(ingredient),ingredient.name)
